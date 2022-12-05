@@ -11,26 +11,21 @@ export default function App() {
         <ImageBackground
           source={require("./assets/background.jpg")}
           resizeMode="cover"
-          style={{ flex: 1, justifyContent: "center" }}
+          style={{ flex: 1 }}
         >
           <View style={styles.overlay}>
             <AppNavigation />
           </View>
         </ImageBackground>
       </NavigationContainer>
-      <StatusBar style="auto" backgroundColor="pink" />
+      <StatusBar style="light" />
     </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "black",
-    justifyContent: "center",
-  },
   overlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "hsla(0,0%,0%,0.4)",
+    backgroundColor: "hsla(0,0%,0%,0.7)",
   },
 });

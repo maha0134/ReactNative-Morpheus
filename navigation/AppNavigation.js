@@ -12,6 +12,7 @@ export default function AppNavigation() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
+          size = 35;
           if (route.name === "Home") {
             let name = focused ? "home" : "home-outline";
             return <Ionicons name={name} size={size} color={color} />;
@@ -23,23 +24,24 @@ export default function AppNavigation() {
             return <Ionicons name={name} size={size} color={color} />;
           }
         },
-        // tabBarActiveTintColor: "lightseagreen",
-        // tabBarInactiveTintColor: "lightseagreen",
+        tabBarActiveTintColor: "white",
+        tabBarInactiveTintColor: "white",
         tabBarLabelStyle: styles.label,
         tabBarShowLabel: false,
         tabBarItemStyle: {
           backgroundColor: "rgba(0,0,0,0)",
-          borderColor: "pink",
         },
+        headerShown: false,
 
         tabBarStyle: {
           backgroundColor: "rgba(0,0,0,0)",
           elevation: 0,
-          position: "absolute",
-          borderColor: "rgba(0,0,0,0)",
+          margin: 5,
+          // position: "absolute",
           borderTopWidth: 0,
         },
       })}
+      sceneContainerStyle={{ backgroundColor: "rgba(0,0,0,0)" }}
     >
       <Tab.Screen
         name="Home"
