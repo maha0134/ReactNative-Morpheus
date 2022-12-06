@@ -1,5 +1,4 @@
 import HomeScreen from "../components/HomeScreen";
-import AddDream from "../components/DreamLog";
 import Settings from "../components/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";

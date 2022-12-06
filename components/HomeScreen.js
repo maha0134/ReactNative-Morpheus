@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MyAppHeadingText from "./MyAppHeadingText";
 import MyAppText from "./MyAppText";
@@ -27,47 +27,52 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <MyAppHeadingText heading={1} color="aquamarine">
+        <MyAppHeadingText heading={1} color="turquoise">
           Good Morning Sleepyhead!
         </MyAppHeadingText>
-        <View style={styles.date}>
+        <View style={styles.row}>
           <Ionicons name="today" size={25} color="white" />
-          <MyAppText align="center" color="aquamarine">
+          <MyAppText align="center" color="turquoise">
             {getDate()}
           </MyAppText>
         </View>
         <MyAppText>How was your night?</MyAppText>
         <View style={styles.emojis}>
-          <FontAwesome5
-            name="sad-cry"
-            size={selectedValue === 0 ? selectedSize : size}
-            color={selectedValue === 0 ? selectedColor : color}
-            onPress={() => setSelectedValue(0)}
-          />
-          <Entypo
-            name="emoji-sad"
-            size={selectedValue === 1 ? selectedSize : size}
-            color={selectedValue === 1 ? selectedColor : color}
-            onPress={() => setSelectedValue(1)}
-          />
-          <Entypo
-            name="emoji-neutral"
-            size={selectedValue === 2 ? selectedSize : size}
-            color={selectedValue === 2 ? selectedColor : color}
-            onPress={() => setSelectedValue(2)}
-          />
-          <Entypo
-            name="emoji-happy"
-            size={selectedValue === 3 ? selectedSize : size}
-            color={selectedValue === 3 ? selectedColor : color}
-            onPress={() => setSelectedValue(3)}
-          />
-          <FontAwesome5
-            name="laugh-beam"
-            size={selectedValue === 4 ? selectedSize : size}
-            color={selectedValue === 4 ? selectedColor : color}
-            onPress={() => setSelectedValue(4)}
-          />
+          <Pressable onPress={() => setSelectedValue(0)}>
+            <FontAwesome5
+              name="sad-cry"
+              size={selectedValue === 0 ? selectedSize : size}
+              color={selectedValue === 0 ? selectedColor : color}
+            />
+          </Pressable>
+          <Pressable onPress={() => setSelectedValue(1)}>
+            <Entypo
+              name="emoji-sad"
+              size={selectedValue === 1 ? selectedSize : size}
+              color={selectedValue === 1 ? selectedColor : color}
+            />
+          </Pressable>
+          <Pressable onPress={() => setSelectedValue(2)}>
+            <Entypo
+              name="emoji-neutral"
+              size={selectedValue === 2 ? selectedSize : size}
+              color={selectedValue === 2 ? selectedColor : color}
+            />
+          </Pressable>
+          <Pressable onPress={() => setSelectedValue(3)}>
+            <Entypo
+              name="emoji-happy"
+              size={selectedValue === 3 ? selectedSize : size}
+              color={selectedValue === 3 ? selectedColor : color}
+            />
+          </Pressable>
+          <Pressable onPress={() => setSelectedValue(4)}>
+            <FontAwesome5
+              name="laugh-beam"
+              size={selectedValue === 4 ? selectedSize : size}
+              color={selectedValue === 4 ? selectedColor : color}
+            />
+          </Pressable>
         </View>
         <MyAppText>How many hours did you sleep?</MyAppText>
         <View style={styles.glass}>
@@ -91,7 +96,8 @@ export default function HomeScreen() {
           placeholder="Being chased..."
           onChangeText={handleNameChange}
           value={name}
-          style={[styles.textBox, { borderRadius: 10, marginBottom: 0 }]}
+          cursorColor="black"
+          style={[styles.textBox, { marginBottom: 0 }]}
         />
         <MyAppText>Dream details</MyAppText>
         <TextInput
@@ -100,6 +106,7 @@ export default function HomeScreen() {
           numberOfLines={5}
           style={styles.textBox}
           ref={detailsRef}
+          cursorColor="black"
           onChangeText={handleDetailsChange}
           value={details}
         />
@@ -158,10 +165,10 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 25,
     paddingRight: 25,
-    borderRadius: 15,
+    borderRadius: 5,
     marginBottom: 15,
   },
-  date: {
+  row: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
