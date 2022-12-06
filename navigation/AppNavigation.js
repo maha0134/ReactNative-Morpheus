@@ -1,9 +1,10 @@
 import HomeScreen from "../components/HomeScreen";
-import AddDream from "../components/AddDream";
+import AddDream from "../components/DreamLog";
 import Settings from "../components/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
+import DreamLog from "../components/DreamLog";
 
 const Tab = createBottomTabNavigator();
 
@@ -12,15 +13,15 @@ export default function AppNavigation() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          size = 35;
+          size = 30;
           if (route.name === "Home") {
             let name = focused ? "home" : "home-outline";
             return <Ionicons name={name} size={size} color={color} />;
+          } else if (route.name === "Dream Log") {
+            let name = focused ? "book" : "book-outline";
+            return <Ionicons name={name} size={size} color={color} />;
           } else if (route.name === "Settings") {
             let name = focused ? "ios-settings" : "ios-settings-outline";
-            return <Ionicons name={name} size={size} color={color} />;
-          } else if (route.name === "Add Dream") {
-            let name = focused ? "add-circle-sharp" : "add-circle-outline";
             return <Ionicons name={name} size={size} color={color} />;
           }
         },
@@ -37,7 +38,6 @@ export default function AppNavigation() {
           backgroundColor: "rgba(0,0,0,0)",
           elevation: 0,
           margin: 5,
-          // position: "absolute",
           borderTopWidth: 0,
         },
       })}
@@ -52,9 +52,9 @@ export default function AppNavigation() {
         }}
       />
       <Tab.Screen
-        name="Add Dream"
-        component={AddDream}
-        options={{ tabBarAccessibilityLabel: "Add Dream" }}
+        name="Dream Log"
+        component={DreamLog}
+        options={{ tabBarAccessibilityLabel: "Dream Log" }}
       />
       <Tab.Screen
         name="Settings"

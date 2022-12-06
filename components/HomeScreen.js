@@ -2,36 +2,40 @@ import { View, StyleSheet, TextInput, Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MyAppHeadingText from "./MyAppHeadingText";
 import MyAppText from "./MyAppText";
-import { FontAwesome5, Entypo } from "@expo/vector-icons";
-import { useEffect, useState } from "react";
+import { FontAwesome5, Entypo, Ionicons } from "@expo/vector-icons";
+import { useEffect, useRef, useState } from "react";
 import Slider from "@react-native-community/slider";
 import { ScrollView } from "react-native-gesture-handler";
 import AwesomeButton from "react-native-really-awesome-button";
+import { getDate } from "../helpers/helperFunctions";
 
 export default function HomeScreen() {
   const color = "silver";
   const [selectedValue, setSelectedValue] = useState(null);
+  const detailsRef = useRef(0);
   const size = 36;
   const selectedSize = 42;
   const selectedColor = "cyan";
   const [disabled, setDisabled] = useState(true);
-  const [text, setText] = useState(false);
-
+  const [name, handleNameChange] = useState(null);
+  const [details, handleDetailsChange] = useState(null);
   const [sliderValue, setSliderValue] = useState(7);
-
-  function handleEdit(text) {
-    text.length > 0 ? setText(true) : setText(false);
-  }
   useEffect(() => {
-    selectedValue && text ? setDisabled(false) : setDisabled(true);
-  }, [selectedValue, text]);
+    selectedValue && name && details ? setDisabled(false) : setDisabled(true);
+  }, [selectedValue, name, details]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <MyAppHeadingText heading={1}>
+        <MyAppHeadingText heading={1} color="aquamarine">
           Good Morning Sleepyhead!
         </MyAppHeadingText>
+        <View style={styles.date}>
+          <Ionicons name="today" size={25} color="white" />
+          <MyAppText align="center" color="aquamarine">
+            {getDate()}
+          </MyAppText>
+        </View>
         <MyAppText>How was your night?</MyAppText>
         <View style={styles.emojis}>
           <FontAwesome5
@@ -81,22 +85,23 @@ export default function HomeScreen() {
             {sliderValue} hours
           </MyAppText>
         </View>
-        <MyAppText>Dream Diary</MyAppText>
+        <MyAppHeadingText heading={2}>Dream Diary</MyAppHeadingText>
+        <MyAppText>Dream name</MyAppText>
         <TextInput
-          placeholder="Enter dream details..."
+          placeholder="Being chased..."
+          onChangeText={handleNameChange}
+          value={name}
+          style={[styles.textBox, { borderRadius: 10, marginBottom: 0 }]}
+        />
+        <MyAppText>Dream details</MyAppText>
+        <TextInput
+          placeholder="I was on a horse..."
           multiline
-          numberOfLines={6}
-          style={{
-            backgroundColor: "lightgray",
-            borderWidth: 1,
-            paddingTop: 5,
-            paddingBottom: 5,
-            paddingLeft: 25,
-            paddingRight: 25,
-            borderRadius: 15,
-            marginBottom: 15,
-          }}
-          onChangeText={handleEdit}
+          numberOfLines={5}
+          style={styles.textBox}
+          ref={detailsRef}
+          onChangeText={handleDetailsChange}
+          value={details}
         />
         <View style={styles.btn}>
           <AwesomeButton
@@ -145,5 +150,20 @@ const styles = StyleSheet.create({
   btn: {
     alignItems: "center",
     margin: 10,
+  },
+  textBox: {
+    backgroundColor: "lightgray",
+    borderWidth: 1,
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 25,
+    paddingRight: 25,
+    borderRadius: 15,
+    marginBottom: 15,
+  },
+  date: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
