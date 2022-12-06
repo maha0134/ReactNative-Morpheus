@@ -10,24 +10,30 @@ import AwesomeButton from "react-native-really-awesome-button";
 import { getDate } from "../helpers/helperFunctions";
 
 export default function HomeScreen() {
+  //TODO Things needed in context: Display Name
+
   const color = "silver";
   const [selectedValue, setSelectedValue] = useState(null);
   const detailsRef = useRef(0);
   const size = 36;
   const selectedSize = 42;
-  const selectedColor = "cyan";
+  const selectedColor = "aquamarine";
   const [disabled, setDisabled] = useState(true);
-  const [name, handleNameChange] = useState(null);
-  const [details, handleDetailsChange] = useState(null);
+  const [name, handleNameChange] = useState("");
+  const [details, handleDetailsChange] = useState("");
   const [sliderValue, setSliderValue] = useState(7);
   useEffect(() => {
-    selectedValue && name && details ? setDisabled(false) : setDisabled(true);
+    if (selectedValue && name.trim().length > 0 && details.trim().length > 0) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
   }, [selectedValue, name, details]);
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <MyAppHeadingText heading={1} color="turquoise">
+        <MyAppHeadingText heading={1}>
           Good Morning Sleepyhead!
         </MyAppHeadingText>
         <View style={styles.row}>
@@ -111,24 +117,26 @@ export default function HomeScreen() {
           value={details}
         />
         <View style={styles.btn}>
-          <AwesomeButton
-            progress
-            animatedPlaceholder
-            backgroundColor={disabled ? "gray" : "teal"}
-            raiseLevel={disabled ? 0 : 2}
-            borderRadius={75}
-            backgroundDarker="silver"
-            paddingHorizontal={25}
-            height={45}
-            textSize={19}
-            disabled={disabled}
-            onPress={async (next) => {
-              /** await for something; then: **/
-              // next();
-            }}
-          >
-            Add Dream
-          </AwesomeButton>
+          {!disabled && (
+            <AwesomeButton
+              progress
+              animatedPlaceholder
+              backgroundColor={disabled ? "lightgray" : "teal"}
+              raiseLevel={disabled ? 0 : 2}
+              borderRadius={75}
+              backgroundDarker="silver"
+              paddingHorizontal={25}
+              height={45}
+              textSize={19}
+              disabled={disabled}
+              onPress={async (next) => {
+                /** await for something; then: **/
+                // next();
+              }}
+            >
+              Add Dream
+            </AwesomeButton>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
