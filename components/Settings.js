@@ -22,13 +22,9 @@ export default function Settings() {
     setEditName(false);
   };
 
-  const chooseFromGallery = async ()=>{
-    
-  }
+  const chooseFromGallery = async () => {};
 
-  const takePhoto = ()=>{
-
-  }
+  const takePhoto = () => {};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,27 +58,29 @@ export default function Settings() {
       <View style={styles.buttons}>
         <AwesomeButton
           backgroundColor="teal"
-          raiseLevel={2}
+          raiseLevel={3}
           backgroundDarker="lightgray"
-          borderRadius={15}
-          paddingHorizontal={10}
-          height={70}
+          borderRadius={10}
+          paddingHorizontal={5}
+          height={65}
+          width={175}
           style={styles.btn}
           onPress={chooseFromGallery}
         >
-          <MyAppText>Choose from gallery</MyAppText>
+          <MyAppText size={16}>Choose from gallery</MyAppText>
         </AwesomeButton>
         <AwesomeButton
           backgroundColor="teal"
-          raiseLevel={2}
+          raiseLevel={3}
           backgroundDarker="lightgray"
-          borderRadius={15}
+          borderRadius={10}
           paddingHorizontal={10}
-          height={70}
+          height={65}
+          width={175}
           style={styles.btn}
-          onPress = {takePhoto}
+          onPress={takePhoto}
         >
-          <MyAppText>Take a new picture</MyAppText>
+          <MyAppText size={16}>Take a new picture</MyAppText>
         </AwesomeButton>
       </View>
     </SafeAreaView>
@@ -112,8 +110,8 @@ const styles = StyleSheet.create({
   },
   glass: {
     backgroundColor: "#00ced13F",
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 20,
+    paddingRight: 25,
     borderRadius: 15,
   },
   buttons: {
