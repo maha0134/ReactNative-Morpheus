@@ -5,14 +5,25 @@ import { StyleSheet, TextInput, View, Button, Pressable } from "react-native";
 import { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import AwesomeButton from "react-native-really-awesome-button";
+import * as ImagePicker from "expo-image-picker";
+import * as MediaLibrary from "expo-media-library";
+import { useData } from "../context/dataContext";
 
 export default function Settings() {
+  const [cameraStatus, requestCameraPermission] =
+    ImagePicker.useCameraPermissions();
+
+  const [mediaStatus, requestMediaPermission] =
+    ImagePicker.useMediaLibraryPermissions();
+
+  // const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
+
   const [displayName, setDisplayName] = useState("Sleepyhead");
   const [editName, setEditName] = useState(false);
   const [disabled, setDisabled] = useState(false);
-
+  const [background, setBackground] = useData();
   //TODO Things needed in context: Display Name, Image uri
-
+  useEffect(() => {}, []);
   useEffect(() => {
     displayName.trim().length > 0 ? setDisabled(false) : setDisabled(true);
   }, [displayName]);
@@ -22,7 +33,24 @@ export default function Settings() {
     setEditName(false);
   };
 
-  const chooseFromGallery = async () => {};
+  const chooseFromGallery = async () => {
+    await requestMediaPermission();
+    if (mediaStatus === "denied") {
+      alert("Please grant permissions to read from gallery");
+    } else {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+      if (!result.canceled) {
+        setBackground({ uri: result.assets[0].uri });
+      } else {
+        alert("you did not select any image");
+      }
+    }
+  };
 
   const takePhoto = () => {};
 

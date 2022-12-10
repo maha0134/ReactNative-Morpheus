@@ -22,6 +22,7 @@ export default function HomeScreen() {
   const [name, handleNameChange] = useState("");
   const [details, handleDetailsChange] = useState("");
   const [sliderValue, setSliderValue] = useState(7);
+  const date = getDate();
   useEffect(() => {
     if (selectedValue && name.trim().length > 0 && details.trim().length > 0) {
       setDisabled(false);
@@ -39,7 +40,7 @@ export default function HomeScreen() {
         <View style={styles.row}>
           <Ionicons name="today" size={25} color="white" />
           <MyAppText align="center" color="turquoise">
-            {getDate()}
+            {date}
           </MyAppText>
         </View>
         <MyAppText>How was your night?</MyAppText>

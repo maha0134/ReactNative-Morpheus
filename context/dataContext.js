@@ -3,7 +3,8 @@ import React from "react";
 const DataContext = React.createContext();
 
 export function DataProvider(props) {
-  const [background, setBackground] = React.useState([]);
+  const uri = require("../assets/background.jpg");
+  const [background, setBackground] = React.useState(uri);
   const [displayName, setDisplayName] = React.useState([]);
   return (
     <DataContext.Provider value={[background, setBackground]} {...props} />
