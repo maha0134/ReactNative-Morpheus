@@ -9,25 +9,35 @@ import AddDream from "./AddDream";
 
 export default function HomeScreen() {
   const date = getDate();
-  const [, , displayName, data, setData] = useData();
+  const [, , displayName, , data] = useData();
   const [dreamExists, setDreamExists] = useState(false);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (data.length > 0) {
+      const dream = data.find((item) => item.id === date);
+      if (dream) {
+        setDreamExists(true);
+      }
+    }
+  }, [data]);
 
-  if (dreamExists) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <MyAppText>
-          Looks like you have already logged last night's dream.
-        </MyAppText>
-        <MyAppText>Remember additional details?</MyAppText>
-        <MyAppText>
-          You can click the journal button below and edit your dream.
-        </MyAppText>
-      </SafeAreaView>
-    );
-  } else {
-    return <AddDream />;
-  }
+  return (
+    <SafeAreaView style={styles.container}>
+      {dreamExists ? (
+        <>
+          <MyAppHeadingText heading={1}>Hey there!</MyAppHeadingText>
+          <MyAppText>
+            Looks like you have already logged last night's dream.
+          </MyAppText>
+          <MyAppText>Remember additional details?</MyAppText>
+          <MyAppText>
+            You can click the journal button below and edit your dream.
+          </MyAppText>
+        </>
+      ) : (
+        <AddDream />
+      )}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -35,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200,0,0,0)",
     flex: 1,
     margin: 16,
+    justifyContent: "center",
   },
 
   glass: {

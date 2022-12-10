@@ -21,20 +21,43 @@ export default function AddDream() {
   const [details, handleDetailsChange] = useState("");
   const [sliderValue, setSliderValue] = useState(7);
   const date = getDate();
-  const [, , displayName, data, setData] = useData();
+  const [, , displayName, , data, setData] = useData();
+  const [showOverlay, setOverlay] = useState(false);
 
   useEffect(() => {
-    if (selectedValue && name.trim().length > 0 && details.trim().length > 0) {
+    if (
+      selectedValue !== null &&
+      name.trim().length > 0 &&
+      details.trim().length > 0
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
   }, [selectedValue, name, details]);
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    const details = {
+      id: date,
+      mood: selectedValue,
+      hours: sliderValue,
+      dreamName: name,
+      dreamDetail: details,
+    };
+    let dataCopy;
+    if (data) {
+      dataCopy = [...data];
+    }
+    dataCopy.push(details);
+    setOverlay(true);
+    setTimeout(() => {
+      setOverlay(false);
+      setData(dataCopy);
+    }, 1500);
+  }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <>
       <ScrollView>
         <MyAppHeadingText heading={1}>
           Good Morning{" "}
@@ -139,7 +162,14 @@ export default function AddDream() {
           </AwesomeButton>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      {showOverlay && (
+        <View style={styles.overlay}>
+          <MyAppText color="turquoise" align="center">
+            Dream Added!
+          </MyAppText>
+        </View>
+      )}
+    </>
   );
 }
 
@@ -148,6 +178,15 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(200,0,0,0)",
     flex: 1,
     margin: 16,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFill,
+    width: "100%",
+    flex: 1,
+    height: "20%",
+    borderRadius: 15,
+    backgroundColor: "hsla(0,0%,0%,0.9)",
+    justifyContent: "center",
   },
   emojis: {
     flexDirection: "row",
