@@ -6,24 +6,17 @@ import { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import AwesomeButton from "react-native-really-awesome-button";
 import * as ImagePicker from "expo-image-picker";
-import * as MediaLibrary from "expo-media-library";
 import { useData } from "../context/dataContext";
 
 export default function Settings() {
   const [cameraStatus, requestCameraPermission] =
     ImagePicker.useCameraPermissions();
-
   const [mediaStatus, requestMediaPermission] =
     ImagePicker.useMediaLibraryPermissions();
-
-  // const [permissionResponse, requestPermission] = MediaLibrary.usePermissions();
-
-  const [displayName, setDisplayName] = useState("Sleepyhead");
   const [editName, setEditName] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [background, setBackground] = useData();
+  const [background, setBackground, displayName, setDisplayName] = useData();
   //TODO Things needed in context: Display Name, Image uri
-  useEffect(() => {}, []);
   useEffect(() => {
     displayName.trim().length > 0 ? setDisabled(false) : setDisabled(true);
   }, [displayName]);
@@ -52,7 +45,26 @@ export default function Settings() {
     }
   };
 
-  const takePhoto = () => {};
+  const takePhoto = async () => {
+    await requestCameraPermission();
+    if (cameraStatus === "denied") {
+      alert("Please allow permission to use the camera");
+    } else {
+      let options = {
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        allowsEditing: true,
+        exif: false,
+      };
+      let result = await ImagePicker.launchCameraAsync(options).catch(
+        console.error
+      );
+      if (!result.canceled) {
+        let uri = result.assets[0].uri;
+        setBackground({ uri: uri });
+      }
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,7 +72,7 @@ export default function Settings() {
       <MyAppText>Display Name</MyAppText>
       {!editName && (
         <View style={[styles.row, styles.glass]}>
-          <MyAppText>{displayName ?? "Sleepyhead"}</MyAppText>
+          <MyAppText>{displayName}</MyAppText>
           <Pressable onPress={() => setEditName(true)}>
             <AntDesign name="edit" size={25} color="turquoise" />
           </Pressable>
