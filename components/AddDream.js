@@ -1,11 +1,17 @@
-import { View, StyleSheet, TextInput, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  Pressable,
+  Button,
+  ScrollView,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MyAppHeadingText from "./MyAppHeadingText";
 import MyAppText from "./MyAppText";
 import { FontAwesome5, Entypo, Ionicons } from "@expo/vector-icons";
 import { useEffect, useState } from "react";
 import Slider from "@react-native-community/slider";
-import { ScrollView } from "react-native-gesture-handler";
 import AwesomeButton from "react-native-really-awesome-button";
 import { getDate } from "../helpers/helperFunctions";
 import { useData } from "../context/dataContext";
@@ -21,40 +27,43 @@ export default function AddDream() {
   const [details, handleDetailsChange] = useState("");
   const [sliderValue, setSliderValue] = useState(7);
   const date = getDate();
-  const [, , displayName, , data, setData] = useData();
+  const [, , displayName, , dreamData, setData] = useData();
   const [showOverlay, setOverlay] = useState(false);
 
   useEffect(() => {
-    if (
-      selectedValue !== null &&
-      name.trim().length > 0 &&
-      details.trim().length > 0
-    ) {
+    if (selectedValue && name.trim().length > 0 && details.trim().length > 0) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
   }, [selectedValue, name, details]);
 
-  function handleSubmit() {
-    const details = {
+  const handleSubmit = () => {
+    console.log(dreamData, selectedValue, name, details);
+    const dreamDetails = {
       id: date,
-      mood: selectedValue,
-      hours: sliderValue,
-      dreamName: name,
-      dreamDetail: details,
+      data: [
+        {
+          mood: selectedValue,
+          hours: sliderValue,
+          dreamName: name,
+          dreamDetail: details,
+        },
+      ],
     };
     let dataCopy;
-    if (data) {
-      dataCopy = [...data];
+    if (dreamData) {
+      dataCopy = [...dreamData, dreamDetails];
+    } else {
+      dataCopy = [dreamDetails];
     }
-    dataCopy.push(details);
     setOverlay(true);
     setTimeout(() => {
       setOverlay(false);
       setData(dataCopy);
     }, 1500);
-  }
+    console.log(selectedValue, name, details);
+  };
 
   return (
     <>
@@ -145,9 +154,8 @@ export default function AddDream() {
           value={details}
         />
         <View style={styles.btn}>
+          {/* <Button onPress={handleSubmit} title="Add Dream" /> */}
           <AwesomeButton
-            progress
-            animatedPlaceholder
             backgroundColor={disabled ? "lightgray" : "teal"}
             raiseLevel={disabled ? 0 : 2}
             borderRadius={75}
@@ -156,7 +164,8 @@ export default function AddDream() {
             height={45}
             textSize={19}
             disabled={disabled}
-            onPress={handleSubmit}
+            progress
+            onProgressStart={handleSubmit}
           >
             Add Dream
           </AwesomeButton>

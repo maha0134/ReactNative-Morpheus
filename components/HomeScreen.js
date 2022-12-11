@@ -9,16 +9,16 @@ import AddDream from "./AddDream";
 
 export default function HomeScreen() {
   const date = getDate();
-  const [, , displayName, , data] = useData();
+  const [, , , , dreamData] = useData();
   const [dreamExists, setDreamExists] = useState(false);
   useEffect(() => {
-    if (data.length > 0) {
-      const dream = data.find((item) => item.id === date);
+    if (dreamData.length > 0) {
+      const dream = dreamData.find((item) => item.id === date);
       if (dream) {
         setDreamExists(true);
       }
     }
-  }, [data]);
+  }, [dreamData]);
 
   return (
     <SafeAreaView style={styles.container}>

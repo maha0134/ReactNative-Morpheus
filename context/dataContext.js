@@ -6,7 +6,7 @@ export function DataProvider(props) {
   const uri = require("../assets/background.jpg");
   const [background, setBackground] = React.useState(uri);
   const [displayName, setDisplayName] = React.useState("Sleepyhead");
-  const [data, setData] = React.useState([]);
+  const [dreamData, setData] = React.useState([]);
   return (
     <DataContext.Provider
       value={[
@@ -14,7 +14,7 @@ export function DataProvider(props) {
         setBackground,
         displayName,
         setDisplayName,
-        data,
+        dreamData,
         setData,
       ]}
       {...props}
