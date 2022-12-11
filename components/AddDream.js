@@ -3,10 +3,8 @@ import {
   StyleSheet,
   TextInput,
   Pressable,
-  Button,
   ScrollView,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import MyAppHeadingText from "./MyAppHeadingText";
 import MyAppText from "./MyAppText";
 import { FontAwesome5, Entypo, Ionicons } from "@expo/vector-icons";
@@ -18,10 +16,10 @@ import { useData } from "../context/dataContext";
 
 export default function AddDream() {
   const color = "silver";
-  const [selectedValue, setSelectedValue] = useState(null);
   const size = 36;
   const selectedSize = 42;
   const selectedColor = "aquamarine";
+  const [selectedValue, setSelectedValue] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [name, handleNameChange] = useState("");
   const [details, handleDetailsChange] = useState("");
@@ -31,7 +29,11 @@ export default function AddDream() {
   const [showOverlay, setOverlay] = useState(false);
 
   useEffect(() => {
-    if (selectedValue && name.trim().length > 0 && details.trim().length > 0) {
+    if (
+      selectedValue !== null &&
+      name.trim().length > 0 &&
+      details.trim().length > 0
+    ) {
       setDisabled(false);
     } else {
       setDisabled(true);
@@ -39,7 +41,6 @@ export default function AddDream() {
   }, [selectedValue, name, details]);
 
   const handleSubmit = () => {
-    console.log(dreamData, selectedValue, name, details);
     const dreamDetails = {
       id: date,
       data: [
@@ -62,7 +63,6 @@ export default function AddDream() {
       setOverlay(false);
       setData(dataCopy);
     }, 1500);
-    console.log(selectedValue, name, details);
   };
 
   return (

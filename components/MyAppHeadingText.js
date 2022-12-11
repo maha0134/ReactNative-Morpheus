@@ -9,6 +9,7 @@ export default function MyAppHeadingText(props) {
         paddingTop: 12,
         paddingBottom: 12,
         color: props.color ?? "azure",
+        margin: props.margin ?? 10,
       }}
     >
       {props.children}
