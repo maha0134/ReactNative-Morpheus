@@ -19,6 +19,6 @@ export default function Background() {
 const styles = StyleSheet.create({
   overlay: {
     ...StyleSheet.absoluteFill,
-    backgroundColor: "hsla(0,0%,0%,0.7)",
+    backgroundColor: "hsla(0,0%,0%,0.8)",
   },
 });

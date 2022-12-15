@@ -1,7 +1,15 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import MyAppHeadingText from "./MyAppHeadingText";
 import MyAppText from "./MyAppText";
-import { StyleSheet, TextInput, View, Button, Pressable } from "react-native";
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Button,
+  Pressable,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import AwesomeButton from "react-native-really-awesome-button";
@@ -17,6 +25,7 @@ export default function Settings() {
   const [disabled, setDisabled] = useState(false);
   const [, setBackground, displayName, setDisplayName] = useData();
   const [changeDisplayName, setChangeDisplayName] = useState(displayName);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     displayName.trim().length > 0 ? setDisabled(false) : setDisabled(true);
@@ -30,7 +39,7 @@ export default function Settings() {
   const chooseFromGallery = async () => {
     await requestMediaPermission();
     if (mediaStatus === "denied") {
-      alert("Please grant permissions to read from gallery");
+      Alert.alert("Error", "Please grant permissions to read from gallery");
     } else {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -39,9 +48,13 @@ export default function Settings() {
         quality: 1,
       });
       if (!result.canceled) {
-        setBackground({ uri: result.assets[0].uri });
+        setIsLoading(true);
+        setTimeout(() => {
+          setBackground({ uri: result.assets[0].uri });
+          setIsLoading(false);
+        }, 1000);
       } else {
-        alert("you did not select any image");
+        Alert.alert("Error", "Oops! You did not select any image");
       }
     }
   };
@@ -49,7 +62,7 @@ export default function Settings() {
   const takePhoto = async () => {
     await requestCameraPermission();
     if (cameraStatus === "denied") {
-      alert("Please allow permission to use the camera");
+      Alert.alert("Error", "Please allow permission to use the camera");
     } else {
       let options = {
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -61,8 +74,14 @@ export default function Settings() {
         console.error
       );
       if (!result.canceled) {
-        let uri = result.assets[0].uri;
-        setBackground({ uri: uri });
+        setIsLoading(true);
+        setTimeout(() => {
+          let uri = result.assets[0].uri;
+          setBackground({ uri: uri });
+          setIsLoading(false);
+        }, 1000);
+      } else {
+        Alert.alert("Error", "Oops! You did not click a picture");
       }
     }
   };
@@ -104,7 +123,6 @@ export default function Settings() {
           borderRadius={10}
           paddingHorizontal={5}
           height={65}
-          // width={175}
           style={styles.btn}
           onPress={chooseFromGallery}
         >
@@ -117,13 +135,13 @@ export default function Settings() {
           borderRadius={10}
           paddingHorizontal={10}
           height={65}
-          // width={175}
           style={styles.btn}
           onPress={takePhoto}
         >
           <MyAppText size={16}>Take a new picture</MyAppText>
         </AwesomeButton>
       </View>
+      {isLoading && <ActivityIndicator size="large" color="turquoise" />}
     </SafeAreaView>
   );
 }
