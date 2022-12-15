@@ -3,8 +3,8 @@ export default function MyAppHeadingText(props) {
   return (
     <Text
       style={{
-        // fontFamily: "QuanticoBold",
-        fontSize: props.heading === 1 ? 48 : 32,
+        fontFamily: "Merriweather",
+        fontSize: props.heading === 1 ? 43 : 32,
         textAlign: "center",
         paddingTop: 12,
         paddingBottom: 12,

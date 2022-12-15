@@ -15,14 +15,15 @@ export default function Settings() {
     ImagePicker.useMediaLibraryPermissions();
   const [editName, setEditName] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [background, setBackground, displayName, setDisplayName] = useData();
-  //TODO Things needed in context: Display Name, Image uri
+  const [, setBackground, displayName, setDisplayName] = useData();
+  const [changeDisplayName, setChangeDisplayName] = useState(displayName);
+
   useEffect(() => {
     displayName.trim().length > 0 ? setDisabled(false) : setDisabled(true);
   }, [displayName]);
 
   const handleSubmit = () => {
-    setDisplayName(displayName.trim());
+    setDisplayName(changeDisplayName.trim());
     setEditName(false);
   };
 
@@ -83,8 +84,8 @@ export default function Settings() {
           <TextInput
             placeholder="Queen..."
             style={styles.textBox}
-            value={displayName}
-            onChangeText={setDisplayName}
+            value={changeDisplayName}
+            onChangeText={setChangeDisplayName}
           />
           <Button
             title="Set"
@@ -103,7 +104,7 @@ export default function Settings() {
           borderRadius={10}
           paddingHorizontal={5}
           height={65}
-          width={175}
+          // width={175}
           style={styles.btn}
           onPress={chooseFromGallery}
         >
@@ -116,7 +117,7 @@ export default function Settings() {
           borderRadius={10}
           paddingHorizontal={10}
           height={65}
-          width={175}
+          // width={175}
           style={styles.btn}
           onPress={takePhoto}
         >

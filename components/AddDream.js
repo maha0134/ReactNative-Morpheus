@@ -134,8 +134,10 @@ export default function AddDream() {
             {sliderValue} hours
           </MyAppText>
         </View>
-        <MyAppHeadingText heading={2}>Dream Diary</MyAppHeadingText>
-        <MyAppText>Dream name</MyAppText>
+        <MyAppHeadingText heading={2} margin={0}>
+          Dream Diary
+        </MyAppHeadingText>
+        <MyAppText marginTop={0}>Dream name</MyAppText>
         <TextInput
           placeholder="Being chased..."
           onChangeText={handleNameChange}

@@ -4,8 +4,8 @@ export default function MyAppText(props) {
   return (
     <Text
       style={{
-        // fontFamily: "Quantico",
-        fontSize: props.size ?? 22,
+        fontFamily: "MerriweatherLight",
+        fontSize: props.size ?? 20,
         paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 5,
