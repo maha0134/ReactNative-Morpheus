@@ -9,6 +9,7 @@ export function DataProvider(props) {
   const [dreamData, setData] = React.useState([]);
   const backgroundKey = "dream-log-bg";
   const displayNameKey = "dream-log-name";
+  const dreamDataKey = "dream-log-data";
 
   useEffect(() => {
     const getData = async () => {
@@ -20,6 +21,10 @@ export function DataProvider(props) {
         const appBackground = await AsyncStorage.getItem(backgroundKey);
         if (appBackground) {
           setBackground(JSON.parse(appBackground));
+        }
+        const dream = await AsyncStorage.getItem(dreamDataKey);
+        if (dream) {
+          setData(JSON.parse(dream));
         }
       } catch (err) {
         console.error(err);
@@ -40,6 +45,19 @@ export function DataProvider(props) {
       storeBackground(background);
     }
   }, [background]);
+
+  useEffect(() => {
+    const storeDream = async (dreamData) => {
+      try {
+        await AsyncStorage.setItem(dreamDataKey, JSON.stringify(dreamData));
+      } catch (e) {
+        console.error(e);
+      }
+    };
+    if (dreamData.length > 0) {
+      storeDream(dreamData);
+    }
+  }, [dreamData]);
 
   useEffect(() => {
     const storeName = async (displayName) => {
