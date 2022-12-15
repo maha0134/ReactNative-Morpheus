@@ -9,23 +9,23 @@ export default function Item({ note }) {
   switch (note.mood) {
     case 0:
       emoji = <FontAwesome5 name="sad-cry" size={size} color={color} />;
-      break
+      break;
     case 1:
       emoji = <Entypo name="emoji-sad" size={size} color={color} />;
-      break
+      break;
     case 2:
       emoji = <Entypo name="emoji-neutral" size={size} color={color} />;
-      break
+      break;
     case 3:
       emoji = <Entypo name="emoji-happy" size={size} color={color} />;
-      break
+      break;
     default:
       emoji = <FontAwesome5 name="laugh-beam" size={size} color={color} />;
-      break
+      break;
   }
   return (
-    <>
-      <View style={styles.card}>
+    <View style={styles.card}>
+      <View style={styles.highlight}>
         {emoji}
         <MyAppText>{note.hours} hours</MyAppText>
       </View>
@@ -33,16 +33,21 @@ export default function Item({ note }) {
         <MyAppText marginBottom={0}>Dream name: {note.dreamName}</MyAppText>
         <MyAppText marginTop={0}>Details: {note.dreamDetail}</MyAppText>
       </View>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
-  card: {
+  highlight: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "darkcyan",
     margin: 10,
     borderRadius: 10,
+  },
+  card: {
+    backgroundColor: "#00ced13F",
+    padding: 0,
+    borderRadius: 15,
   },
 });

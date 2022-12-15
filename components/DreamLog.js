@@ -7,7 +7,7 @@ import Item from "./Item";
 export default function DreamLog() {
   const [, , , , dreamData] = useData();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <MyAppHeadingText>Dream log</MyAppHeadingText>
       {dreamData.length > 0 ? (
         <SectionList
@@ -19,7 +19,7 @@ export default function DreamLog() {
               {id}
             </MyAppHeadingText>
           )}
-          style={styles.glass}
+          style={styles.scroll}
         />
       ) : (
         <View style={styles.container}>
@@ -34,11 +34,10 @@ const styles = StyleSheet.create({
   container: {
     margin: 16,
     justifyContent: "center",
+    flex: 1,
   },
-  glass: {
-    backgroundColor: "#00ced13F",
-    paddingTop: 10,
-    paddingBottom: 15,
+  scroll: {
     borderRadius: 15,
+    flex: 1,
   },
 });

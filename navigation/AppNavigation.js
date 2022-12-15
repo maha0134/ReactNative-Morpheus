@@ -3,7 +3,6 @@ import Settings from "../components/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import DreamLog from "../components/DreamLog";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { StyleSheet } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,9 +31,12 @@ export default function AppNavigation() {
           elevation: 0,
           margin: 5,
           borderTopWidth: 0,
+          padding: 0,
         },
       })}
-      sceneContainerStyle={{ backgroundColor: "rgba(0,0,0,0)" }}
+      sceneContainerStyle={{
+        backgroundColor: "rgba(0,0,0,0)",
+      }}
     >
       <Tab.Screen
         name="Home"
@@ -56,8 +58,3 @@ export default function AppNavigation() {
     </Tab.Navigator>
   );
 }
-const styles = StyleSheet.create({
-  label: {
-    fontSize: 14,
-  },
-});
