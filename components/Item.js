@@ -25,13 +25,15 @@ export default function Item({ note }) {
   }
   return (
     <View style={styles.card}>
+      <MyAppText marginBottom={0} align="center">
+        {note.dreamName}
+      </MyAppText>
       <View style={styles.highlight}>
         {emoji}
         <MyAppText>{note.hours} hours</MyAppText>
       </View>
       <View style={{ marginHorizontal: 10 }}>
-        <MyAppText marginBottom={0}>Dream name: {note.dreamName}</MyAppText>
-        <MyAppText marginTop={0}>Details: {note.dreamDetail}</MyAppText>
+        <MyAppText>Details: {note.dreamDetail}</MyAppText>
       </View>
     </View>
   );
@@ -42,12 +44,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "darkcyan",
-    margin: 10,
-    borderRadius: 10,
+    margin: 5,
+    borderRadius: 5,
   },
   card: {
     backgroundColor: "#00ced13F",
     padding: 0,
-    borderRadius: 15,
+    borderRadius: 5,
   },
 });

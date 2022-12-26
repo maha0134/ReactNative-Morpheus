@@ -68,17 +68,17 @@ export default function AddDream() {
   return (
     <>
       <ScrollView>
-        <MyAppHeadingText heading={1}>
+        <MyAppHeadingText paddingBottom={0}>
           Good Morning{" "}
-          <MyAppHeadingText heading={1} color="turquoise">
+          <MyAppHeadingText color="turquoise" bold>
             {displayName}
           </MyAppHeadingText>
         </MyAppHeadingText>
         <View style={styles.row}>
-          <Ionicons name="today" size={25} color="white" />
-          <MyAppText align="center" color="turquoise">
+          <Ionicons name="today" size={18} color="white" />
+          <MyAppHeadingText color="turquoise" font={25}>
             {date}
-          </MyAppText>
+          </MyAppHeadingText>
         </View>
         <MyAppText>How was your night?</MyAppText>
         <View style={styles.emojis}>
@@ -156,9 +156,8 @@ export default function AddDream() {
           value={details}
         />
         <View style={styles.btn}>
-          {/* <Button onPress={handleSubmit} title="Add Dream" /> */}
           <AwesomeButton
-            backgroundColor={disabled ? "lightgray" : "teal"}
+            backgroundColor={disabled ? "gray" : "teal"}
             raiseLevel={disabled ? 0 : 2}
             borderRadius={75}
             backgroundDarker="silver"

@@ -15,7 +15,7 @@ export default function DreamLog() {
           keyExtractor={(item, index) => item + index}
           renderItem={({ item }) => <Item note={item} />}
           renderSectionHeader={({ section: { id } }) => (
-            <MyAppHeadingText color="cyan" padding>
+            <MyAppHeadingText color="cyan" font={25}>
               {id}
             </MyAppHeadingText>
           )}
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scroll: {
-    borderRadius: 15,
+    borderRadius: 10,
     flex: 1,
   },
 });
