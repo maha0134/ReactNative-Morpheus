@@ -1,6 +1,6 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 import MyAppText from "./MyAppText";
-import { FontAwesome5, Entypo } from "@expo/vector-icons";
+import { FontAwesome5, Entypo, AntDesign } from "@expo/vector-icons";
 
 export default function Item({ note }) {
   const color = "aquamarine";
@@ -25,9 +25,15 @@ export default function Item({ note }) {
   }
   return (
     <View style={styles.card}>
-      <MyAppText marginBottom={0} align="center">
-        {note.dreamName}
-      </MyAppText>
+      <View style={styles.row}>
+        <MyAppText margin={0} align="center">
+          {note.dreamName}
+        </MyAppText>
+        <Pressable onPress={() => true}>
+          <AntDesign name="edit" size={25} color="turquoise" />
+        </Pressable>
+      </View>
+
       <View style={styles.highlight}>
         {emoji}
         <MyAppText>{note.hours} hours</MyAppText>
@@ -51,5 +57,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#00ced13F",
     padding: 0,
     borderRadius: 5,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
   },
 });

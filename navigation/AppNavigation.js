@@ -2,9 +2,12 @@ import HomeScreen from "../components/HomeScreen";
 import Settings from "../components/Settings";
 import { Ionicons } from "@expo/vector-icons";
 import DreamLog from "../components/DreamLog";
+import AddDream from "../components/AddDream";
+import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function AppNavigation() {
   return (
@@ -15,7 +18,7 @@ export default function AppNavigation() {
           let name;
           if (route.name === "Home") {
             name = focused ? "home" : "home-outline";
-          } else if (route.name === "Dream Log") {
+          } else if (route.name === "Dreams") {
             name = focused ? "book" : "book-outline";
           } else {
             name = focused ? "ios-settings" : "ios-settings-outline";
@@ -46,8 +49,8 @@ export default function AppNavigation() {
         }}
       />
       <Tab.Screen
-        name="Dream Log"
-        component={DreamLog}
+        name="Dreams"
+        component={StackNavigation}
         options={{ tabBarAccessibilityLabel: "Dream Log" }}
       />
       <Tab.Screen
@@ -56,5 +59,21 @@ export default function AppNavigation() {
         options={{ tabBarAccessibilityLabel: "Settings" }}
       />
     </Tab.Navigator>
+  );
+}
+
+function StackNavigation() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: "transparent",
+        },
+      }}
+    >
+      <Stack.Screen name="Dream Log" component={DreamLog} />
+      <Stack.Screen name="Edit Dream" component={AddDream} />
+    </Stack.Navigator>
   );
 }

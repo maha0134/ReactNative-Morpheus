@@ -8,7 +8,7 @@ export default function DreamLog() {
   const [, , , , dreamData] = useData();
   return (
     <SafeAreaView style={styles.container}>
-      <MyAppHeadingText>Dream log</MyAppHeadingText>
+      <MyAppHeadingText paddingTop={0}>Dream log</MyAppHeadingText>
       {dreamData.length > 0 ? (
         <SectionList
           sections={dreamData}

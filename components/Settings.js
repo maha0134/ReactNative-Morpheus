@@ -88,7 +88,7 @@ export default function Settings() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MyAppHeadingText heading={1}>Tune up</MyAppHeadingText>
+      <MyAppHeadingText paddingTop={0}>Tune up</MyAppHeadingText>
       <MyAppText>Display Name</MyAppText>
       {!editName && (
         <View style={[styles.row, styles.glass]}>
