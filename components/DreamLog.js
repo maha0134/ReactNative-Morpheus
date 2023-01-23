@@ -4,7 +4,7 @@ import MyAppText from "./MyAppText";
 import MyAppHeadingText from "./MyAppHeadingText";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Item from "./Item";
-export default function DreamLog() {
+export default function DreamLog({ navigation }) {
   const [, , , , dreamData] = useData();
   return (
     <SafeAreaView style={styles.container}>
@@ -13,7 +13,9 @@ export default function DreamLog() {
         <SectionList
           sections={dreamData}
           keyExtractor={(item, index) => item + index}
-          renderItem={({ item }) => <Item note={item} />}
+          renderItem={({ item, section }) => (
+            <Item note={item} navigation={navigation} id={section.id} />
+          )}
           renderSectionHeader={({ section: { id } }) => (
             <MyAppHeadingText color="cyan" font={25}>
               {id}

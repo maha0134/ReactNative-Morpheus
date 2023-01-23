@@ -73,7 +73,20 @@ function StackNavigation() {
       }}
     >
       <Stack.Screen name="Dream Log" component={DreamLog} />
-      <Stack.Screen name="Edit Dream" component={AddDream} />
+      <Stack.Screen
+        name="Edit Dream"
+        component={AddDream}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: "transparent",
+            elevation: 0,
+            borderBottomColor: "white",
+            borderBottomWidth: 0.25,
+          },
+          headerTintColor: "white",
+        }}
+      />
     </Stack.Navigator>
   );
 }

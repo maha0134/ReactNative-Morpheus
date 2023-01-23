@@ -14,7 +14,7 @@ import AwesomeButton from "react-native-really-awesome-button";
 import { getDate } from "../helpers/helperFunctions";
 import { useData } from "../context/dataContext";
 
-export default function AddDream() {
+export default function AddDream({ route,navigation }) {
   const color = "silver";
   const size = 36;
   const selectedSize = 42;
@@ -27,6 +27,21 @@ export default function AddDream() {
   const date = getDate();
   const [, , displayName, , dreamData, setData] = useData();
   const [showOverlay, setOverlay] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentDream, setCurrentDream] = useState(null);
+
+  useEffect(() => {
+    if (route) {
+      setIsEditing(true);
+      let findDream = dreamData.find((item) => item.id === route.params.id);
+      findDream = Object.assign({}, { id: findDream.id }, findDream.data[0]);
+      setCurrentDream(findDream);
+      setSelectedValue(findDream.mood);
+      setSliderValue(findDream.hours);
+      handleNameChange(findDream.dreamName);
+      handleDetailsChange(findDream.dreamDetail);
+    }
+  }, [route]);
 
   useEffect(() => {
     if (
@@ -42,7 +57,7 @@ export default function AddDream() {
 
   const handleSubmit = () => {
     const dreamDetails = {
-      id: date,
+      id: isEditing ? currentDream.id : date,
       data: [
         {
           mood: selectedValue,
@@ -54,7 +69,13 @@ export default function AddDream() {
     };
     let dataCopy;
     if (dreamData) {
-      dataCopy = [...dreamData, dreamDetails];
+      if (!isEditing) {
+        dataCopy = [...dreamData, dreamDetails];
+      } else {
+        let index = dreamData.findIndex(item=>item.id === currentDream.id)
+        dreamData[index].data = currentDream.data
+        dataCopy = dreamData;
+      }
     } else {
       dataCopy = [dreamDetails];
     }
@@ -62,24 +83,30 @@ export default function AddDream() {
     setTimeout(() => {
       setOverlay(false);
       setData(dataCopy);
+      navigation.goBack()
     }, 1500);
   };
 
   return (
     <>
-      <ScrollView>
-        <MyAppHeadingText paddingBottom={0}>
-          Good Morning{" "}
-          <MyAppHeadingText color="turquoise" bold>
-            {displayName}
-          </MyAppHeadingText>
-        </MyAppHeadingText>
-        <View style={styles.row}>
-          <Ionicons name="today" size={18} color="white" />
-          <MyAppHeadingText color="turquoise" font={25}>
-            {date}
-          </MyAppHeadingText>
-        </View>
+      <ScrollView style={{ margin: isEditing ? 15 : 0 }}>
+        {!isEditing && (
+          <>
+            <MyAppHeadingText paddingBottom={0}>
+              Good Morning{" "}
+              <MyAppHeadingText color="turquoise" bold>
+                {displayName}
+              </MyAppHeadingText>
+            </MyAppHeadingText>
+            <View style={styles.row}>
+              <Ionicons name="today" size={18} color="white" />
+              <MyAppHeadingText color="turquoise" font={25}>
+                {date}
+              </MyAppHeadingText>
+            </View>
+          </>
+        )}
+        {isEditing && <MyAppHeadingText>{currentDream.id}</MyAppHeadingText>}
         <MyAppText>How was your night?</MyAppText>
         <View style={styles.emojis}>
           <Pressable onPress={() => setSelectedValue(0)}>
@@ -159,23 +186,23 @@ export default function AddDream() {
           <AwesomeButton
             backgroundColor={disabled ? "gray" : "teal"}
             raiseLevel={disabled ? 0 : 2}
-            borderRadius={75}
+            borderRadius={7}
             backgroundDarker="silver"
-            paddingHorizontal={25}
-            height={45}
-            textSize={19}
+            paddingHorizontal={35}
+            height={50}
+            textSize={18}
             disabled={disabled}
             progress
             onProgressStart={handleSubmit}
           >
-            Add Dream
+            {isEditing ? "Update" : "Add Dream"}
           </AwesomeButton>
         </View>
       </ScrollView>
       {showOverlay && (
         <View style={styles.overlay}>
           <MyAppText color="turquoise" align="center">
-            Dream Added!
+            {isEditing ? "Dream Modified!" : "Dream Added!"}
           </MyAppText>
         </View>
       )}
