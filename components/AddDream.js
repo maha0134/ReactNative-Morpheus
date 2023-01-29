@@ -188,6 +188,7 @@ export default function AddDream({ route,navigation }) {
           cursorColor="black"
           onChangeText={handleDetailsChange}
           value={details}
+          
         />
         <View style={styles.btn}>
           <AwesomeButton
@@ -254,8 +255,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingTop: 5,
     paddingBottom: 5,
-    paddingLeft: 25,
-    paddingRight: 25,
+    paddingLeft: 15,
+    paddingRight: 15,
     borderRadius: 5,
     marginBottom: 15,
   },
