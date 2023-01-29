@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "mad9135-p2-react-native-final",
+    "name": "Morpheus",
     "slug": "mad9135-p2-react-native-final",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -14,7 +14,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -24,10 +26,12 @@
         "backgroundColor": "#FFFFFF"
       },
       "permissions": [
-        "CAMERA",
-        "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
-      ]
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.coderror404.morpheus"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -41,6 +45,11 @@
           "isAccessMediaLocationEnabled": true
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "259ffcce-0523-4410-b2f6-d759c83d6d64"
+      }
+    }
   }
 }
