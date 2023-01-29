@@ -9,7 +9,7 @@ export default function DreamLog({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <MyAppHeadingText paddingTop={0}>Dream log</MyAppHeadingText>
-      {dreamData.length > 0 ? (
+      {dreamData?.length > 0 ? (
         <SectionList
           sections={dreamData}
           keyExtractor={(item, index) => item + index}

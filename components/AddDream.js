@@ -31,7 +31,7 @@ export default function AddDream({ route,navigation }) {
   const [currentDream, setCurrentDream] = useState(null);
 
   useEffect(() => {
-    if (route) {
+    if (route && route.params.id) {
       setIsEditing(true);
       let findDream = dreamData.find((item) => item.id === route.params.id);
       findDream = Object.assign({}, { id: findDream.id }, findDream.data[0]);
@@ -41,7 +41,7 @@ export default function AddDream({ route,navigation }) {
       handleNameChange(findDream.dreamName);
       handleDetailsChange(findDream.dreamDetail);
     }
-  }, [route]);
+  }, []);
 
   useEffect(() => {
     if (
@@ -55,7 +55,7 @@ export default function AddDream({ route,navigation }) {
     }
   }, [selectedValue, name, details]);
 
-  const handleSubmit = () => {
+  const handleSubmitAndUpdate = () => {
     const dreamDetails = {
       id: isEditing ? currentDream.id : date,
       data: [
@@ -68,13 +68,17 @@ export default function AddDream({ route,navigation }) {
       ],
     };
     let dataCopy;
-    if (dreamData) {
+    if (dreamData.length > 0) {
       if (!isEditing) {
         dataCopy = [...dreamData, dreamDetails];
       } else {
-        let index = dreamData.findIndex(item=>item.id === currentDream.id)
-        dreamData[index].data = currentDream.data
-        dataCopy = dreamData;
+        let index = dreamData.findIndex(item=>item.id === dreamDetails.id)
+        if(index>=0){
+          dataCopy = [...dreamData]
+          dataCopy[index] = dreamDetails
+        }else{
+          console.log("dream not found")
+        }
       }
     } else {
       dataCopy = [dreamDetails];
@@ -83,7 +87,10 @@ export default function AddDream({ route,navigation }) {
     setTimeout(() => {
       setOverlay(false);
       setData(dataCopy);
-      navigation.goBack()
+      if(isEditing) {
+        setIsEditing(false);
+        navigation.goBack();
+      }
     }, 1500);
   };
 
@@ -155,7 +162,7 @@ export default function AddDream({ route,navigation }) {
             value={sliderValue}
             minimumTrackTintColor="#FFFFFF"
             maximumTrackTintColor="#DDDDDD"
-            onValueChange={(val) => setSliderValue(val)}
+            onSlidingComplete={(val)=>setSliderValue(val)}
           />
           <MyAppText align="center" marginTop={0}>
             {sliderValue} hours
@@ -193,7 +200,7 @@ export default function AddDream({ route,navigation }) {
             textSize={18}
             disabled={disabled}
             progress
-            onProgressStart={handleSubmit}
+            onProgressStart={handleSubmitAndUpdate}
           >
             {isEditing ? "Update" : "Add Dream"}
           </AwesomeButton>
