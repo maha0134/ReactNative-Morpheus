@@ -88,7 +88,7 @@ export default function Settings() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MyAppHeadingText>Tune up</MyAppHeadingText>
+      <MyAppHeadingText paddingTop={0}>Tune up</MyAppHeadingText>
       <MyAppText>Display Name</MyAppText>
       {!editName && (
         <View style={[styles.row, styles.glass]}>
@@ -118,10 +118,11 @@ export default function Settings() {
       <View style={styles.buttons}>
         <AwesomeButton
           backgroundColor="teal"
-          raiseLevel={3}
+          raiseLevel={1}
           backgroundDarker="lightgray"
           borderRadius={10}
-          paddingHorizontal={5}
+          paddingHorizontal={15}
+          width={205}
           height={65}
           style={styles.btn}
           onPress={chooseFromGallery}
@@ -130,10 +131,11 @@ export default function Settings() {
         </AwesomeButton>
         <AwesomeButton
           backgroundColor="teal"
-          raiseLevel={3}
+          raiseLevel={1}
           backgroundDarker="lightgray"
           borderRadius={10}
-          paddingHorizontal={10}
+          paddingHorizontal={15}
+          width={205}
           height={65}
           style={styles.btn}
           onPress={takePhoto}

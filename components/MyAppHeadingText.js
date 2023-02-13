@@ -3,11 +3,11 @@ export default function MyAppHeadingText(props) {
   return (
     <Text
       style={{
-        fontFamily: "Merriweather",
-        fontSize: props.heading === 1 ? 43 : 32,
+        fontFamily: props.bold ? "MerriweatherBold" : "Merriweather",
+        fontSize: props.font ?? 35,
         textAlign: "center",
-        paddingTop: 12,
-        paddingBottom: 12,
+        paddingTop: props.paddingTop ?? 12,
+        paddingBottom: props.paddingBottom ?? 12,
         color: props.color ?? "azure",
         margin: props.margin ?? 10,
       }}

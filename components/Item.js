@@ -1,8 +1,8 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Pressable } from "react-native";
 import MyAppText from "./MyAppText";
-import { FontAwesome5, Entypo } from "@expo/vector-icons";
+import { FontAwesome5, Entypo, AntDesign } from "@expo/vector-icons";
 
-export default function Item({ note }) {
+export default function Item({ note, navigation, id }) {
   const color = "aquamarine";
   const size = 42;
   let emoji;
@@ -25,13 +25,21 @@ export default function Item({ note }) {
   }
   return (
     <View style={styles.card}>
+      <View style={styles.row}>
+        <MyAppText margin={0} align="center">
+          {note.dreamName}
+        </MyAppText>
+        <Pressable onPress={() => navigation.navigate("Edit Dream", { id })}>
+          <AntDesign name="edit" size={25} color="turquoise" />
+        </Pressable>
+      </View>
+
       <View style={styles.highlight}>
         {emoji}
         <MyAppText>{note.hours} hours</MyAppText>
       </View>
       <View style={{ marginHorizontal: 10 }}>
-        <MyAppText marginBottom={0}>Dream name: {note.dreamName}</MyAppText>
-        <MyAppText marginTop={0}>Details: {note.dreamDetail}</MyAppText>
+        <MyAppText>Details: {note.dreamDetail}</MyAppText>
       </View>
     </View>
   );
@@ -41,13 +49,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    backgroundColor: "darkcyan",
-    margin: 10,
-    borderRadius: 10,
+    backgroundColor: "#0d6363",
+    margin: 0,
   },
   card: {
     backgroundColor: "#00ced13F",
     padding: 0,
-    borderRadius: 15,
+    borderRadius: 5,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 10,
   },
 });

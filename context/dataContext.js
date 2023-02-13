@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const DataContext = React.createContext();
 
 export function DataProvider(props) {
   const uri = require("../assets/background.jpg");
-  const [background, setBackground] = React.useState(uri);
-  const [displayName, setDisplayName] = React.useState("Sleepyhead");
-  const [dreamData, setData] = React.useState([]);
+  const [background, setBackground] = useState(uri);
+  const [displayName, setDisplayName] = useState("Sleepyhead");
+  const [dreamData, setData] = useState([]);
   const backgroundKey = "dream-log-bg";
   const displayNameKey = "dream-log-name";
   const dreamDataKey = "dream-log-data";
