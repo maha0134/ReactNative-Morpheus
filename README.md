@@ -1,5 +1,5 @@
 # Morpheus - Dream Logger
-
+<img src="screen-morpheus.png" align="left" width="250" alt="screenshot of Morpheus">
 This react native based mobile application helps a user keep track of your dreams. 
 Right in the morning, a person can open and enter the details of what they dreamt about. 
 The app uses Async storage to store dreams in the user's mobile. 
